@@ -18,13 +18,13 @@ export DEBIAN_PRIORITY=critical
 export DEBIAN_FRONTEND=noninteractive
 
 apt-get -y install procps sysstat stress python2.7 gcc vim vim-youcompleteme linux-tools-common linux-tools-generic linux-tools-$(uname -r) fio iotop iperf iptraf nethogs nicstat git build-essential manpages-dev glibc-doc
-apt-get -y install linux-headers-$(uname -r) sysdig bpfcc-tools
+#apt-get -y install linux-headers-$(uname -r) sysdig bpfcc-tools
 
 # BCC
 apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 4052245BD4284CDD
 echo "deb https://repo.iovisor.org/apt/$(lsb_release -cs) $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/iovisor.list
 apt-get update
-apt-get install bcc-tools libbcc-examples linux-headers-$(uname -r)
+apt-get install bcc-tools libbcc-examples linux-headers-$(uname -r) sysdig
 #sudo apt-get -y install bison build-essential cmake flex git libedit-dev \
 #  libllvm6.0 llvm-6.0-dev libclang-6.0-dev python zlib1g-dev libelf-dev luajit luajit-5.1-dev
 #

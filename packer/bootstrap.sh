@@ -18,18 +18,22 @@ export DEBIAN_PRIORITY=critical
 export DEBIAN_FRONTEND=noninteractive
 
 apt-get -y install procps sysstat stress python2.7 gcc vim vim-youcompleteme linux-tools-common linux-tools-generic linux-tools-$(uname -r) fio iotop iperf iptraf nethogs nicstat git build-essential manpages-dev glibc-doc
-apt-get -y install linux-headers-$(uname -r) sysdig
+apt-get -y install linux-headers-$(uname -r) sysdig bpfcc-tools
 
 # BCC
-apt-get install -y bison build-essential cmake flex git libedit-dev \
-  libllvm3.9 llvm-3.9-dev libclang-3.9-dev python zlib1g-dev libelf-dev luajit luajit-5.1-dev
-
-cd ~
-git clone https://github.com/iovisor/bcc.git
-mkdir bcc/build; cd bcc/build
-cmake .. -DCMAKE_INSTALL_PREFIX=/usr/local
-make install
-ldconfig
+apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 4052245BD4284CDD
+echo "deb https://repo.iovisor.org/apt/$(lsb_release -cs) $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/iovisor.list
+apt-get update
+apt-get install bcc-tools libbcc-examples linux-headers-$(uname -r)
+#sudo apt-get -y install bison build-essential cmake flex git libedit-dev \
+#  libllvm6.0 llvm-6.0-dev libclang-6.0-dev python zlib1g-dev libelf-dev luajit luajit-5.1-dev
+#
+#cd ~
+#git clone https://github.com/iovisor/bcc.git
+#mkdir bcc/build; cd bcc/build
+#cmake .. -DCMAKE_INSTALL_PREFIX=/usr/local
+#make install
+#ldconfig
 
 cd ~
 LATEST_NETDATA="$(wget -q -O - https://raw.githubusercontent.com/firehol/binary-packages/master/netdata-latest.gz.run)"
